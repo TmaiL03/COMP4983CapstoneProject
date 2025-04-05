@@ -10,7 +10,7 @@ library(car)
 library(Metrics)
 
 # Reading in dataset.
-database <- read.csv("https://drive.google.com/uc?export=download&id=1XbMSqWfcMhD22XthrYjhqDlbVq3SSo9N")
+database <- read.csv("database.csv")
 
 # Data preprocessing.
 database$year <- as.factor(database$year)
@@ -37,7 +37,7 @@ database <- mutate(database, "Red Bull" = ifelse(team == "Red Bull", 1, 0))
 database <- mutate(database, Sauber = ifelse(team == "Sauber", 1, 0))
 database <- mutate(database, Williams = ifelse(team == "Williams", 1, 0))
 
-summary(database)
+# summary(database)
 
 
 # Preparation of model 1 (baseline, no DNFs)
@@ -45,13 +45,13 @@ database1 = database[c(1:11)]
 model1 = lm(finish ~ ., data = database1)
 
 summary(model1)
-par(mfrow = c(1,1))
-plot(model1, which=1:2)
+# par(mfrow = c(1,1))
+# plot(model1, which=1:2)
 
 # Preparation of model 2 (introduction of DNFs)
 database2 = database[c(1:12)]
 model2 = lm(finish ~ ., data = database2)
-plot(model2, which=1:2)
+# plot(model2, which=1:2)
 
 summary(model2)
 
@@ -125,8 +125,8 @@ test <- test %>% dplyr::select(-id)
 model3 = lm(finish ~ ., data = train)
 
 # Analysis of model 3.
-summary(model3)
-anova(model3)
+# summary(model3)
+# anova(model3)
 
 # Generating predictions for the test set.
 predictions = predict(model3, test)
